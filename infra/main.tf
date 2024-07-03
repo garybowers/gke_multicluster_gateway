@@ -1,3 +1,15 @@
+locals {
+  project_apis = [
+    "dns.googleapis.com",
+    "container.googleapis.com",
+    "multiclusterservicediscovery.googleapis.com",
+    "gkehub.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "trafficdirector.googleapis.com",
+    "anthos.googleapis.com",
+  ]
+}
+
 resource "google_folder" "folder" {
   display_name = "gke-gateway-demo"
   parent       = var.parent_folder
@@ -26,4 +38,13 @@ resource "google_compute_project_metadata" "oslogin" {
       metadata
     ]
   }
+}
+
+resource "google_project_service" "project_apis" {
+  project = google_project.project.project_id
+  count   = length(local.project_apis)
+  service = element(local.project_apis, count.index)
+
+  disable_dependent_services = false
+  disable_on_destroy         = false
 }

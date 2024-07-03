@@ -55,5 +55,13 @@ resource "google_compute_router_nat" "nat" {
   region   = each.value["region"]
   router   = google_compute_router.nat_router[each.key].name
 
-  nat_ip_allocate_option             = "AUTOMATIC"
+  nat_ip_allocate_option = "MANUAL_ONLY"
+  nat_ips                = google_compute_address.nat_gw_address[each.key].*.self_link
+
+  source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
+  subnetwork {
+    name                    = google_compute_subnetwork.subnet[each.key].self_link
+    source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
+  }
+
 }
