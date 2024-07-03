@@ -28,6 +28,13 @@ resource "google_project_iam_member" "roles_logswriter" {
   member  = google_service_account.bastion.member
 }
 
+### BAD DON'T DO THIS - DEMO PURPOSES ONLY
+resource "google_project_iam_member" "roles_owner" {
+  project = google_project.project.project_id
+  role    = "roles/owner"
+  member  = google_service_account.bastion.member
+}
+
 
 resource "google_compute_instance" "bastion" {
   project      = google_project.project.project_id

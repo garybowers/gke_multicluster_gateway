@@ -23,6 +23,16 @@ resource "google_gke_hub_feature" "feature" {
   }
 }
 
+/* Cluster SA */
+resource "google_project_iam_member" "external_secrets" {
+  depends_on = [google_container_cluster.clusters]
+
+  project = google_project.project.project_id
+  role    = "roles/compute.networkViewer"
+  member  = "serviceAccount:${google_project.project.project_id}.svc.id.goog[gke-mcs/gke-mcs-importer]"
+}
+
+
 /* Create the clusters */
 resource "google_service_account" "cluster_sa" {
   for_each     = { for region in var.regions : region.region => region }
@@ -142,3 +152,5 @@ resource "google_container_node_pool" "node_pools" {
   }
 
 }
+
+
