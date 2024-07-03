@@ -18,3 +18,4 @@ regions = [
     release_channel  = "RAPID"
   },
 ]
+parent_domain = "demos.bowers1.com"
