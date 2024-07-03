@@ -79,3 +79,8 @@ resource "google_compute_firewall" "ingress_allow_iap" {
 
   source_ranges = ["35.235.240.0/20"]
 }
+
+resource "google_compute_global_address" "gke_gw_address" {
+  project  = google_project.project.project_id
+  name     = "gateway-1-ext-addr"
+}
