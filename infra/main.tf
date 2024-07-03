@@ -7,6 +7,7 @@ locals {
     "cloudresourcemanager.googleapis.com",
     "trafficdirector.googleapis.com",
     "anthos.googleapis.com",
+    "certificatemanager.googleapis.com",
   ]
 }
 
