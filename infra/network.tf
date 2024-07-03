@@ -81,6 +81,6 @@ resource "google_compute_firewall" "ingress_allow_iap" {
 }
 
 resource "google_compute_global_address" "gke_gw_address" {
-  project  = google_project.project.project_id
-  name     = "gateway-1-ext-addr"
+  project = google_project.project.project_id
+  name    = "gateway-1-ext-addr"
 }

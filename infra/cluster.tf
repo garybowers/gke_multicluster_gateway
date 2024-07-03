@@ -32,6 +32,13 @@ resource "google_project_iam_member" "external_secrets" {
   member  = "serviceAccount:${google_project.project.project_id}.svc.id.goog[gke-mcs/gke-mcs-importer]"
 }
 
+resource "google_project_iam_member" "certmanager-dns" {
+  depends_on = [google_container_cluster.clusters]
+
+  project = google_project.project.project_id
+  role    = "roles/dns.admin"
+  member  = "serviceAccount:${google_project.project.project_id}.svc.id.goog[cert-manager/cert-manager]"
+}
 
 /* Create the clusters */
 resource "google_service_account" "cluster_sa" {
