@@ -1,0 +1,36 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: gary@zencore.dev
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+    - selector:
+        dnsZones:
+          - mc.demos.bowers1.com 
+      dns01:
+        cloudDNS:
+          project: gke-gateway-demo-705700 
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: gary@zencore.dev 
+    privateKeySecretRef:
+      name: letsencrypt
+    solvers:
+    - selector:
+        dnsZones:
+          - mc.demos.bowers1.com
+      dns01:
+        cloudDNS:
+          project: gke-gateway-demo-705700
